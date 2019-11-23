@@ -1,0 +1,6 @@
+{
+    "host":"localhost",
+    "database":"macoto",
+    "user":"root",
+    "pass":"123"
+}
