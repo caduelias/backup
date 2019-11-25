@@ -14,13 +14,13 @@ class HistoricoService
     private $repository;
 
     public function __construct(HistoricoRepository $repository)
-    {
+    { 
         $this->repository = $repository;
     }
 
-    public function insert()
+    public function insert($historicoEntity)
     {
-        return $this->repository->insert();
+        $this->repository->insert($historicoEntity);
     }
     
     public function getAll(): array

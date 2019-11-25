@@ -6,7 +6,7 @@ namespace App\Repository\Database;
 
 use App\Exception\DatabaseException;
 use PDO;
-use stdClass;
+use stdClass; 
 
 class Mysql extends PDO
 {

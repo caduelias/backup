@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\HistoricoEntity;
+use App\Exception\DatabaseException;
 use PDO;
 
 class HistoricoRepository implements HistoricoInterfaceRepository
 {
+    
     /**
      * @var PDO
      */
     private $setInstance;
-
+ 
     public function __construct(
         PDO $setInstance
     )
@@ -21,9 +23,17 @@ class HistoricoRepository implements HistoricoInterfaceRepository
         $this->setInstance = $setInstance;
     }
 
-    public function insert(): HistoricoEntity
+    public function insert($entity)
     {
-        return new HistoricoEntity();
+        try {
+            $stmt = $this->setInstance->prepare("insert into historico(idhistorico, idcombustivel, valor, data) values (NULL, ?, ?, ?)");
+            $stmt->bindParam(1, $entity->getIdCombustivel());
+            $stmt->bindParam(2, $entity->getValor());
+            $stmt->bindParam(3, $entity->getData());
+            return $stmt->execute();
+        } catch (DatabaseException $e) {
+            throw new DatabaseException("Erro ao inserir");
+        }
     }
 
     public function getAll(): array
@@ -35,7 +45,7 @@ class HistoricoRepository implements HistoricoInterfaceRepository
 
     public function getAllByCombustivel(int $idCombustivel): array
     {
-        $stmt = $this->setInstance->prepare("select data, valor, comparacao from historico where idcombustivel = ? ");
+        $stmt = $this->setInstance->prepare("select data, valor from historico where idcombustivel = ? ");
         $stmt->bindValue(1, $idCombustivel);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, HistoricoEntity::class);
         $stmt->execute();

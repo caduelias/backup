@@ -8,5 +8,5 @@ use PDOException;
 
 class DatabaseException extends PDOException
 {
-    
+     
 }

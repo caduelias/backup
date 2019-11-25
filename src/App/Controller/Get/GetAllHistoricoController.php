@@ -3,13 +3,19 @@
 declare(strict_types=1);
 
 namespace App\Controller\Get;
-
+ 
 use App\Service\HistoricoService;
 
 class GetAllHistoricoController
 {
+    /**
+     * @var HistoricoService
+     */
     private $service;
 
+    /**
+     * @var $climate
+     */
     private $climate;
 
     public function __construct(
@@ -18,7 +24,6 @@ class GetAllHistoricoController
     )
     {
         $this->service = $service;
-
         $this->climate = $climate;
     }
 

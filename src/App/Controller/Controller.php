@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Service\HistoricoService;
 
-class Controller
+class Controller 
 {
     /**
      * @var HistoricoService

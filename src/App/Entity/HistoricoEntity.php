@@ -41,7 +41,7 @@ class HistoricoEntity
     {
         return $this->idcombustivel;
     }
-
+ 
     /**
      * @var int $idcombustivel
      */
@@ -83,17 +83,17 @@ class HistoricoEntity
     }
 
     /**
-     * @return DateTime
+     * @return String
      */
-    public function getData(): DateTime
+    public function getData(): String
     {
         return $this->data;
     }
 
     /**
-     * @var DateTime $data
+     * @var String $data
      */
-    public function setData(DateTime $data): void
+    public function setData(String $data): void
     {
         $this->data = $data;
     }
