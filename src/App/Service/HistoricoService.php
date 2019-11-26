@@ -31,7 +31,7 @@ class HistoricoService
 
     public function getAllByCombustivel(int $idCombustivel): array
     {
-        return $this->getAllByCombustivel($idCombustivel);
+        return $this->repository->getAllByCombustivel($idCombustivel);
     }
 
     public function getByCombustivel(int $idCombustivel): HistoricoEntity

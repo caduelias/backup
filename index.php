@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require 'vendor/autoload.php';
 
+use App\Controller\Get\GetAllByCombustivelController;
 use App\Repository\Database\Mysql;
 use App\Repository\HistoricoRepository;
 use App\Service\HistoricoService;
@@ -27,14 +28,16 @@ $repository = new HistoricoRepository($conn);
 $controllers = [
     '1'   => GetAllHistoricoController::class,
     '2'   => InsertHistoricoController::class,
-    '3'   => GetByCombustivelController::class
+    '3'   => GetByCombustivelController::class,
+    '4'   => GetAllByCombustivelController::class
 
 ];
 
 $service = [
   '1'   => $historicoService = new HistoricoService($repository),
   '2'   => $historicoService = new HistoricoService($repository),
-  '3'   => $historicoService = new HistoricoService($repository)
+  '3'   => $historicoService = new HistoricoService($repository),
+  '4'   => $historicoService = new HistoricoService($repository)
 
 ];
 
@@ -46,9 +49,10 @@ while(true){
 
     $padding = $climate->padding(10);
 
-    $padding->label('Visualizar todos os itens')->result('[1]');
-    $padding->label('Inserir valor Gasolina/Etanol')->result('[2]');
-    $padding->label('Buscar valor Gasolina/Etanol')->result('[3]');
+    $padding->label('Visualizar todos os itens ')->result('[1]');
+    $padding->label('Inserir Valor ')->result('[2]');
+    $padding->label('Buscar Valor ')->result('[3]');
+    $padding->label('Histórico ')->result('[4]');
 
     $input = $climate->input('Selecione opção do menu');
     $input->accept([1,2,3,4,5,6,7,8,9]);
