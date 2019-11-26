@@ -12,7 +12,7 @@ class HistoricoEntity
 
     private $idcombustivel;
 
-    private $valor;
+    public $valor;
 
     private $comparacao;
 

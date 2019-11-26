@@ -40,23 +40,26 @@ class InsertHistoricoController
             '2' =>  'Gasolina'
         ];
 
+        $this->climate->draw('bender');
+
         $input = $this->climate->radio('Selecione uma opção:', $options);
         $option = $input->prompt();
 
         $this->climate->bleak();
 
         $valor = $this->climate->input('Digite um valor:');
+
         $valor = $valor->prompt();
 
         if ($option === 'Etanol'){
             $idCombustivel = 1;
         }
 
-        if($option === 'Gasolina'){
+        if ($option === 'Gasolina'){
             $idCombustivel = 2;
         }
 
-        $data = date('Y-m-d');  
+        $data = date('Y-m-d H:i:s');  
 
         $historicoEntity = new HistoricoEntity();
 

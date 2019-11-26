@@ -7,10 +7,10 @@ namespace App\Repository;
 use App\Entity\HistoricoEntity;
 use App\Exception\DatabaseException;
 use PDO;
+use Exception;
 
 class HistoricoRepository implements HistoricoInterfaceRepository
 {
-    
     /**
      * @var PDO
      */
@@ -32,7 +32,7 @@ class HistoricoRepository implements HistoricoInterfaceRepository
             $stmt->bindParam(3, $entity->getData());
             return $stmt->execute();
         } catch (DatabaseException $e) {
-            throw new DatabaseException("Erro ao inserir");
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -50,11 +50,11 @@ class HistoricoRepository implements HistoricoInterfaceRepository
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, HistoricoEntity::class);
         $stmt->execute();
         return $stmt->fetch();
-    }
+    }  
 
     public function getByCombustivel(int $idCombustivel): HistoricoEntity
     {
-        $stmt = $this->setInstance->prepare("select MAX(data), valor from historico where idcombustivel = ? GROUP BY valor ");
+        $stmt = $this->setInstance->prepare("select data, valor from historico where idcombustivel = ? order by data desc limit 1 ");
         $stmt->bindValue(1, $idCombustivel);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, HistoricoEntity::class);
         $stmt->execute();

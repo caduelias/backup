@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\HistoricoEntity;
 use App\Repository\HistoricoRepository;
 
 class HistoricoService
@@ -35,6 +36,6 @@ class HistoricoService
 
     public function getByCombustivel(int $idCombustivel): HistoricoEntity
     {
-        return $this->getByCombustivel($idCombustivel);
+        return $this->repository->getByCombustivel($idCombustivel);
     }
 }
