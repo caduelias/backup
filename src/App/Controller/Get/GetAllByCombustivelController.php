@@ -52,7 +52,7 @@ class GetAllByCombustivelController
         $consult = $this->service->getAllByCombustivel($idCombustivel);
 
         if (!$consult) {
-            $this->climate->animation('hello')->enterFrom('top');
+            $this->climate->animation('404')->enterFrom('top');
         }
          
         return $this->climate->table($consult);

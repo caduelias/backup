@@ -10,6 +10,7 @@ use App\Repository\HistoricoRepository;
 use App\Service\HistoricoService;
 use App\Controller\Get\GetAllHistoricoController;
 use App\Controller\Get\GetByCombustivelController;
+use App\Controller\OperacaoController;
 use App\Controller\Post\InsertHistoricoController;
 
 $climate = new League\CLImate\CLImate;
@@ -29,7 +30,8 @@ $controllers = [
     '1'   => GetAllHistoricoController::class,
     '2'   => InsertHistoricoController::class,
     '3'   => GetByCombustivelController::class,
-    '4'   => GetAllByCombustivelController::class
+    '4'   => GetAllByCombustivelController::class,
+    '5'   => OperacaoController::class
 
 ];
 
@@ -37,7 +39,8 @@ $service = [
   '1'   => $historicoService = new HistoricoService($repository),
   '2'   => $historicoService = new HistoricoService($repository),
   '3'   => $historicoService = new HistoricoService($repository),
-  '4'   => $historicoService = new HistoricoService($repository)
+  '4'   => $historicoService = new HistoricoService($repository),
+  '5'   => $historicoService = new HistoricoService($repository)
 
 ];
 
@@ -49,11 +52,16 @@ while(true){
 
     $padding = $climate->padding(10);
 
-    $padding->label('Visualizar todos os itens ')->result('[1]');
-    $padding->label('Inserir Valor ')->result('[2]');
-    $padding->label('Buscar Valor ')->result('[3]');
-    $padding->label('Histórico ')->result('[4]');
-
+    $padding->label('Visualizar todos os itens|-->')->result('[1]');
+    $climate->bleak();
+    $padding->label('Inserir Valor|-------------->')->result('[2]');
+    $climate->bleak();
+    $padding->label('Buscar Valor|--------------->')->result('[3]');
+    $climate->bleak();
+    $padding->label('Histórico|------------------>')->result('[4]');
+    $climate->bleak();
+    $padding->label('Comparar valores|------------->')->result('[5]');
+    $climate->bleak();
     $input = $climate->input('Selecione opção do menu');
     $input->accept([1,2,3,4,5,6,7,8,9]);
 
@@ -63,6 +71,7 @@ while(true){
     $controller();
 
     $inputMenu = $climate->input('Pressione <Enter> para retornar menu');
+ 
     $inputMenu->prompt();
 
 }

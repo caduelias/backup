@@ -40,8 +40,6 @@ class InsertHistoricoController
             '2' =>  'Gasolina'
         ];
 
-        $this->climate->draw('bender');
-
         $input = $this->climate->radio('Selecione uma opção:', $options);
         $option = $input->prompt();
 
