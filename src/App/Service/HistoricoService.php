@@ -21,7 +21,7 @@ class HistoricoService
 
     public function insert($historicoEntity)
     {
-        $this->repository->insert($historicoEntity);
+        return $this->repository->insert($historicoEntity);
     }
     
     public function getAll(): array
@@ -39,7 +39,7 @@ class HistoricoService
         return $this->repository->getByCombustivel($idCombustivel);
     }
 
-    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): ?HistoricoEntity
+    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): ?array
     {
         return $this->repository->getByData($idCombustivel, $datainicial, $datafinal);
     }
@@ -47,7 +47,6 @@ class HistoricoService
     public function calculateValues(float $valorEta, float $valorGas): float
     {  
         $comparacao = ($valorEta / $valorGas);
-
         return $comparacao;
     }
 }

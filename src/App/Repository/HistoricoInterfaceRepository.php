@@ -12,5 +12,5 @@ interface HistoricoInterfaceRepository
     public function getAll(): array;
     public function getAllByCombustivel(int $idCombustivel): array;
     public function getByCombustivel(int $idCombustivel): HistoricoEntity;
-    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): HistoricoEntity;
+    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): ?array;
 } 

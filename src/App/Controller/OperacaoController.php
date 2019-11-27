@@ -48,17 +48,14 @@ class OperacaoController
 
         if($comparacao){
             if ($comparacao < 0.7) {
-                $this->climate->backgroundLightGreen()->out('Abasteça com Etanol!');
+                $this->climate->green()->out('Abasteça com Etanol!');
                 $this->climate->blue('Comparação:' . $comparacao);
             } 
             
             if ($comparacao >= 0.7) {
-                $this->climate->backgroundLightBlue()->out('Abasteça com Gasolina!');
-                $this->climate->green('Comparação:' . $comparacao);
+                $this->climate->green()->out('Abasteça com Gasolina!');
+                $this->climate->blue('Comparação:' . $comparacao);
             }
         }
-      
-        return;
-
     }
 }

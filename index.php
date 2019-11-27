@@ -13,7 +13,6 @@ use App\Controller\Get\GetByCombustivelController;
 use App\Controller\Get\GetByDataController;
 use App\Controller\OperacaoController;
 use App\Controller\Post\InsertHistoricoController;
-use App\Service\DateHandlerService;
 
 $climate = new League\CLImate\CLImate;
 
@@ -23,7 +22,7 @@ $progress = $climate->progress()->total(100);
 
 for ($i = 0; $i <= 100; $i++) {
   $progress->current($i);
-  usleep(2000);
+  usleep(3500);
 }
 
 $repository = new HistoricoRepository($conn);
@@ -69,7 +68,7 @@ while(true){
     $padding->label('Buscar por Data|------------>')->result('[6]');
     $climate->bleak();
     $input = $climate->input('Selecione opção do menu');
-    $input->accept([1,2,3,4,5,6,7,8,9]);
+    $input->accept([1,2,3,4,5,6]);
 
     $nameController = $input->prompt();    
 

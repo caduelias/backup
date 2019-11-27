@@ -25,7 +25,6 @@ class Mysql extends PDO
             $this->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         } catch (DatabaseException $e) {
             throw new DatabaseException("Erro ao conectar no BD");
-        }
-       
+        } 
     }
 }

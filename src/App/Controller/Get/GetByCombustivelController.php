@@ -8,7 +8,6 @@ use App\Service\HistoricoService;
 
 class GetByCombustivelController
 {
-
     /**
      * @var HistoricoService
      */
@@ -42,8 +41,7 @@ class GetByCombustivelController
 
         if ($option === 'Etanol'){
             $param = 1;
-        } 
-        if ($option === 'Gasolina'){
+        } else if ($option === 'Gasolina'){
             $param = 2;
         }
 
@@ -52,12 +50,10 @@ class GetByCombustivelController
         $consult = $this->service->getByCombustivel($idCombustivel);
 
         if (!$consult) {
-            $this->climate->animation('hello')->enterFrom('top');
+            $this->climate->animation('404')->enterFrom('top');
         }
      
         $valor = $consult->valor;      
-        return $this->climate->green('Valor Atual:' . $valor);
-
+        return $this->climate->green($option .' Valor Atual: ' . $valor);
     }
-
 }

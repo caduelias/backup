@@ -41,9 +41,7 @@ class GetAllByCombustivelController
 
         if ($option === 'Etanol'){
             $param = 1;
-        } 
-
-        if ($option === 'Gasolina'){
+        } else if ($option === 'Gasolina'){
             $param = 2;
         }
 
@@ -56,7 +54,5 @@ class GetAllByCombustivelController
         }
          
         return $this->climate->table($consult);
-
     }
-
 }

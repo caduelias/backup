@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Post;
 
 use App\Service\HistoricoService;
-
+use Respect\Validation\Validator as validation;
 use App\Entity\HistoricoEntity;
+use Exception;
 
 class InsertHistoricoController
 {
-
     /**
      * @var HistoricoService
      */
@@ -47,13 +47,23 @@ class InsertHistoricoController
 
         $valor = $this->climate->input('Digite um valor:');
 
-        $valor = $valor->prompt();
+        $valor->accept(function($response) {
+            
+            $validate = validation::numeric()
+                            ->positive()    
+                            ->validate($response);
+            if (!$validate) {
+                $this->climate->red('Valor digitado é inválido');
+            }
+            return $validate;
+         
+        });
 
-        if ($option === 'Etanol'){
+        $response = $valor->prompt();
+
+        if ($option === 'Etanol') {
             $idCombustivel = 1;
-        }
-
-        if ($option === 'Gasolina'){
+        } else if ($option === 'Gasolina') {
             $idCombustivel = 2;
         }
 
@@ -63,9 +73,14 @@ class InsertHistoricoController
 
         $historicoEntity->setData($data);
         $historicoEntity->setIdCombustivel($idCombustivel);
-        $historicoEntity->setValor(floatval($valor));
+        $historicoEntity->setValor(floatval($response));
 
-        return $this->service->insert($historicoEntity);
+        try {
+            $this->service->insert($historicoEntity);
+        } catch(Exception $e){
+            throw new Exception("Erro ao inserir!");
+        }
+        
+        return  $this->climate->green('Valor registrado!');
     }
-    
 }

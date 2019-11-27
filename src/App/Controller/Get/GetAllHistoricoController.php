@@ -29,6 +29,6 @@ class GetAllHistoricoController
 
     public function __invoke()
     {
-        $this->climate->table($this->service->getAll());
+        return $this->climate->table($this->service->getAll());
     }
 }
