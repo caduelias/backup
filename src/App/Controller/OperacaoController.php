@@ -41,10 +41,10 @@ class OperacaoController
             $this->climate->animation('hello')->enterFrom('top');
         }
 
-        $valorEta = $valorEta->valor;
-        $valorGas = $valorGas->valor;
+        $valorEta = floatval($valorEta->valor);
+        $valorGas = floatval($valorGas->valor);
      
-        $comparacao = ($valorEta / $valorGas);
+        $comparacao = $this->service->calculateValues($valorEta, $valorGas);
 
         if($comparacao){
             if ($comparacao < 0.7) {

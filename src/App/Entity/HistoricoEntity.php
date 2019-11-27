@@ -16,7 +16,7 @@ class HistoricoEntity
 
     private $comparacao;
 
-    private $data;
+    public $data;
 
     /**
      * @return int

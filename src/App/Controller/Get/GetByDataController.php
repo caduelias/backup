@@ -34,7 +34,7 @@ class GetByDataController
         $dataInicial = "";
         $dataFinal = "";
 
-        $this->climate->green('Digite o Formato: Ano-mês-dia = 0000-00-00');
+        $this->climate->green('Digite no Formato: 0000-00-00');
         $dataInicial = $this->climate->input('Data Inicial: ');
         $dataInicial = $dataInicial->prompt();
 
@@ -53,8 +53,7 @@ class GetByDataController
         }
 
         if ($dataFinal < $dataInicial || $dataInicial === $dataFinal) {
-            $this->climate->red('Data final não pode ser menor ou igual a data inicial!');
-            exit;
+            throw new Exception('Data final não pode ser menor ou igual a data inicial!');
         } 
 
         try {
@@ -68,10 +67,28 @@ class GetByDataController
             $this->climate->animation('404')->enterFrom('top');
         }
        
-        $valorEtanol = $consultEtanol->valor;
-        $valorGasolina = $consultGasolina->valor;
+        $valorEtanol = floatval($consultEtanol->valor);
+        $valorGasolina = floatval($consultGasolina->valor);
 
-        var_dump($valorEtanol, $valorGasolina);
+        $dataEtanol = $validationService->formatDate($consultEtanol->data);
+        $dataGasolina = $validationService->formatDate($consultGasolina->data);
+
+        $result = $this->service->calculateValues($valorEtanol, $valorGasolina);
+
+        if($result){
+            if ($result < 0.7) {
+                $this->climate->out('Ultimo Valor cadastrado do Etanol entre essas datas foi: '. $valorEtanol . ' em ' . $dataEtanol );
+                $this->climate->out('Ultimo Valor cadastrado da Gasolina entre essas datas foi :'. $valorGasolina . ' em ' . $dataGasolina);
+                $this->climate->blue('O resultado da comparação entre essas datas é de: ' . $result);
+                $this->climate->green('Opção viável era abastecer com Etanol!');
+            } else if ($result >= 0.7) {
+                $this->climate->out('Ultimo Valor cadastrado do Etanol entre essas datas foi: '. $valorEtanol . ' em ' . $dataEtanol );
+                $this->climate->out('Ultimo Valor cadastrado da Gasolina entre essas datas foi: '. $valorGasolina . ' em ' . $dataGasolina);
+                $this->climate->blue('O resultado da comparação entre essas datas é de: ' . $result);
+                $this->climate->green('Opção viável era abastecer com Gasolina!');
+            }
+        }
+
         exit;
         var_dump($consultEtanol, $consultGasolina);
         exit;

@@ -34,13 +34,20 @@ class HistoricoService
         return $this->repository->getAllByCombustivel($idCombustivel);
     }
 
-    public function getByCombustivel(int $idCombustivel): HistoricoEntity
+    public function getByCombustivel(int $idCombustivel): ?HistoricoEntity
     {
         return $this->repository->getByCombustivel($idCombustivel);
     }
 
-    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): HistoricoEntity
+    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): ?HistoricoEntity
     {
         return $this->repository->getByData($idCombustivel, $datainicial, $datafinal);
+    }
+
+    public function calculateValues(float $valorEta, float $valorGas): float
+    {  
+        $comparacao = ($valorEta / $valorGas);
+
+        return $comparacao;
     }
 }

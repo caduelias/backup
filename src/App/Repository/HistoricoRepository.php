@@ -31,8 +31,13 @@ class HistoricoRepository implements HistoricoInterfaceRepository
             $stmt->bindParam(2, $entity->getValor());
             $stmt->bindParam(3, $entity->getData());
             return $stmt->execute();
-        } catch (DatabaseException $e) {
-            throw new Exception($e->getMessage());
+        } catch (Exception $e) {
+            $debug = array(
+                'Mensagem' => $e -> getMessage() ,
+                'Código'    => $e -> getCode()
+            );
+    
+            print_r($debug);
         }
     }
 
