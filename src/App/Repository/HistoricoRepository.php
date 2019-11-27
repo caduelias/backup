@@ -46,7 +46,7 @@ class HistoricoRepository implements HistoricoInterfaceRepository
     public function getAllByCombustivel(int $idCombustivel): array
     {
         $stmt = $this->setInstance->prepare("select data, valor from historico where idcombustivel = ? ");
-        $stmt->bindValue(1, $idCombustivel);
+        $stmt->bindParam(1, $idCombustivel);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }  
@@ -54,14 +54,20 @@ class HistoricoRepository implements HistoricoInterfaceRepository
     public function getByCombustivel(int $idCombustivel): HistoricoEntity
     {
         $stmt = $this->setInstance->prepare("select valor from historico where idcombustivel = ? and valor <> 0 order by idhistorico desc limit 1 ");
-        $stmt->bindValue(1, $idCombustivel);
+        $stmt->bindParam(1, $idCombustivel);
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, HistoricoEntity::class);
         $stmt->execute();
         return $stmt->fetch();
     }
 
-    // public function getByData(string $data): HistoricoEntity
-    //{
-    //    return;
-    //}
+    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): HistoricoEntity
+    {
+        $stmt = $this->setInstance->prepare("select data, valor from historico where idcombustivel = :idcombustivel and data >= :datainicial and data <= :datafinal and valor <> 0 order by idhistorico desc limit 1");
+        $stmt->bindValue(':idcombustivel', $idCombustivel);
+        $stmt->bindValue(':datainicial', $datainicial);
+        $stmt->bindValue(':datafinal', $datafinal);
+        $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, HistoricoEntity::class);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }

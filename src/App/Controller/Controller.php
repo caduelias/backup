@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\DateHandlerService;
 use App\Service\HistoricoService;
 
 class Controller 
@@ -18,9 +19,12 @@ class Controller
      */
     protected $climate;
 
-    public function __construct(HistoricoService $service, $climate)
+    protected $validationData;
+
+    public function __construct(HistoricoService $service, DateHandlerService $validationData, $climate)
     {
         $this->service = $service;
+        $this->validationData = $validationData;
         $this->climate = $climate;
         $this->climate->clear();
     } 

@@ -10,8 +10,10 @@ use App\Repository\HistoricoRepository;
 use App\Service\HistoricoService;
 use App\Controller\Get\GetAllHistoricoController;
 use App\Controller\Get\GetByCombustivelController;
+use App\Controller\Get\GetByDataController;
 use App\Controller\OperacaoController;
 use App\Controller\Post\InsertHistoricoController;
+use App\Service\DateHandlerService;
 
 $climate = new League\CLImate\CLImate;
 
@@ -31,7 +33,8 @@ $controllers = [
     '2'   => InsertHistoricoController::class,
     '3'   => GetByCombustivelController::class,
     '4'   => GetAllByCombustivelController::class,
-    '5'   => OperacaoController::class
+    '5'   => OperacaoController::class,
+    '6'   => GetByDataController::class
 
 ];
 
@@ -40,7 +43,8 @@ $service = [
   '2'   => $historicoService = new HistoricoService($repository),
   '3'   => $historicoService = new HistoricoService($repository),
   '4'   => $historicoService = new HistoricoService($repository),
-  '5'   => $historicoService = new HistoricoService($repository)
+  '5'   => $historicoService = new HistoricoService($repository),
+  '6'   => $historicoService = new HistoricoService($repository)
 
 ];
 
@@ -60,7 +64,9 @@ while(true){
     $climate->bleak();
     $padding->label('Histórico|------------------>')->result('[4]');
     $climate->bleak();
-    $padding->label('Comparar valores|------------->')->result('[5]');
+    $padding->label('Comparar valores|----------->')->result('[5]');
+    $climate->bleak();
+    $padding->label('Buscar por Data|------------>')->result('[6]');
     $climate->bleak();
     $input = $climate->input('Selecione opção do menu');
     $input->accept([1,2,3,4,5,6,7,8,9]);

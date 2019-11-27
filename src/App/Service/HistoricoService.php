@@ -38,4 +38,9 @@ class HistoricoService
     {
         return $this->repository->getByCombustivel($idCombustivel);
     }
+
+    public function getByData(int $idCombustivel, string $datainicial, string $datafinal): HistoricoEntity
+    {
+        return $this->repository->getByData($idCombustivel, $datainicial, $datafinal);
+    }
 }
